@@ -5,10 +5,11 @@
             <input type="text" matInput placeholder="Enter a title." formControlName="title">
         </mat-form-field>
         <button type="button" (click)="addTask()">Add new task</button>
-        <button type="button" (click)="showValues()">Show values</button>
-
     </div>
-    <table>
+    <h3 *ngIf="taskArray.controls.length <= 0">
+        No tasks added yet!
+    </h3>
+    <table *ngIf="taskArray.controls.length > 0">
         <thead>
             <tr>
                 <th>
@@ -21,23 +22,25 @@
             </tr>
         </thead>
         <tbody formArrayName="tasks">
-            <tr *ngFor="let t of taskArray.controls">
-                <td>
-                    <mat-form-field>
-                        <input matInput placeholder="Description" formControlName="description">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-radio-group aria-label="Select an option" formControlName="priority"> 
-                        <mat-radio-button value="Low">Low</mat-radio-button>
-                        <mat-radio-button value="Medium">Medium</mat-radio-button>
-                        <mat-radio-button value="High">High</mat-radio-button>
-                    </mat-radio-group> 
-                </td>
-                <td>
-                    <button type="button">X</button>
-                </td>
-            </tr>
+            <ng-container *ngFor="let t of taskArray.controls; let i = index;">
+                <tr [formGroup]="t">
+                    <td>
+                        <mat-form-field>
+                            <input matInput placeholder="Description" formControlName="description">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-radio-group aria-label="Select an option" formControlName="priority"> 
+                            <mat-radio-button value="Low">Low</mat-radio-button>
+                            <mat-radio-button value="Medium">Medium</mat-radio-button>
+                            <mat-radio-button value="High">High</mat-radio-button>
+                        </mat-radio-group> 
+                    </td>
+                    <td>
+                        <button type="button" (click)="removeTask(i)">X</button>
+                    </td>
+                </tr>
+            </ng-container>
         </tbody>
     </table>
 </form>

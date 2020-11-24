@@ -15,10 +15,15 @@ import { RouterModule } from '@angular/router';
 
 import { MainComponent } from './components/main.component';
 import { TodoformComponent } from './components/todoform.component';
- 
+import { CreateComponent } from './components/create.component'; 
+import { TodoDetailComponent } from './components/todo-detail.component'; 
+
+import { TodoDatabase } from './todo.database';
+
 const ROUTES = [
   { path:'', component : MainComponent },
-  { path:'new', component : TodoformComponent },
+  { path:'new', component : CreateComponent },
+  { path:'todo/:todoId', component : TodoDetailComponent },
   { path:'**', redirectTo:'/', pathMatch: 'full' }
 ]
 
@@ -26,7 +31,9 @@ const ROUTES = [
   declarations: [
     AppComponent,
     MainComponent,
-    TodoformComponent
+    TodoformComponent,
+    CreateComponent,
+    TodoDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,7 @@ const ROUTES = [
     RouterModule.forRoot(ROUTES)
     
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}, TodoDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

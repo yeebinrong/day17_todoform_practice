@@ -3,4 +3,15 @@
     <div fxFlex="8" fxLayoutAlign="center center">
         <button type="button" [routerLink]="['/new']">Create</button>
     </div>
+    <div *ngIf="todos.length <= 0">
+        No todos!
+    </div>
+    <div *ngIf="todos.length > 0">
+        <ng-container *ngFor="let item of todos">
+            <button type="button" mat-raised-button [routerLink]="['/todo', item.id]">
+                <h4>{{item.id}}</h4>
+                <h4>{{item.title}}</h4>
+            </button>
+        </ng-container>
+    </div>
 </div>

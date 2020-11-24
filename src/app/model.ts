@@ -12,3 +12,8 @@ export interface Todo {
     title: string;
     tasks: Task[];
 }
+
+export interface TodoSummary {
+    id: string;
+    title: string;
+}
